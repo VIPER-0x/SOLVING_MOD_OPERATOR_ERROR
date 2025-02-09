@@ -39,3 +39,41 @@ denom: عددی که عدد اول بر آن تقسیم می‌شود (مخرج)
 کاربردهای ریاضی و الگوریتم‌های عددی.
 مشارکت و گزارش مشکلات
 اگر مشکل یا پیشنهادی دارید، لطفاً از طریق Issues در گیت‌هاب مطرح کنید. مشارکت‌های شما به بهبود این پروژه کمک می‌کند!
+Key Points
+Struct ldiv_t:
+
+Holds the quot (quotient) and rem (remainder) as long values.
+Equivalent to the C struct in your original code.
+Function ldivE:
+
+Computes the quotient and remainder with adjustments for negative remainders.
+Matches the exact logic of your ldivE function in C.
+Function ldivF:
+
+Computes the quotient and remainder with adjustments based on the relationship between the remainder and denominator.
+Matches the exact logic of your ldivF function in C.
+Main Method:
+
+Demonstrates the use of the ldivE and ldivF functions.
+Outputs the results in a table format for easy readability.
+Example Output
+When you run the program, the output will look like this:
+
+Function        Numerator       Denominator     Quotient        Remainder  
+----------------------------------------------------------------------------  
+ldivE           10              3               3               1  
+ldivF           10              -3              -4              -2  
+Explanation of Logic
+ldivE:
+
+If the remainder is negative, it adjusts the quotient and remainder to ensure the remainder is non-negative.
+For example: 10 / 3 → Quotient = 3, Remainder = 1.
+ldivF:
+
+Adjusts the quotient and remainder if the remainder and denominator have opposite signs.
+For example: 10 / -3 → Quotient = -4, Remainder = -2.
+Customization
+"> You can modify the input values in the Main method to test different scenarios.
+
+You can add more functions or extend the ldiv_t struct as needed.
+
