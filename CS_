@@ -1,0 +1,68 @@
+using System;  
+
+namespace LongDivisionFunctions  
+{  
+    // Define the ldiv_t struct to hold quotient and remainder  
+    public struct ldiv_t  
+    {  
+        public long quot;  
+        public long rem;  
+    }  
+
+    class Program  
+    {  
+        // Function to emulate ldivE  
+        public static ldiv_t ldivE(long numer, long denom)  
+        {  
+            long q = numer / denom;  // Quotient  
+            long r = numer % denom;  // Remainder  
+            if (r < 0)  
+            {  
+                if (denom > 0)  
+                {  
+                    q = q - 1;  
+                    r = r + denom;  
+                }  
+                else  
+                {  
+                    q = q + 1;  
+                    r = r - denom;  
+                }  
+            }  
+            return new ldiv_t { quot = q, rem = r };  
+        }  
+
+        // Function to emulate ldivF  
+        public static ldiv_t ldivF(long numer, long denom)  
+        {  
+            long q = numer / denom;  // Quotient  
+            long r = numer % denom;  // Remainder  
+            if ((r > 0 && denom < 0) || (r < 0 && denom > 0))  
+            {  
+                q = q - 1;  
+                r = r + denom;  
+            }  
+            return new ldiv_t { quot = q, rem = r };  
+        }  
+
+        // Main function to demonstrate usage  
+        static void Main(string[] args)  
+        {  
+            // Example inputs  
+            long numerE = 10;  
+            long denomE = 3;  
+            long numerF = 10;  
+            long denomF = -3;  
+
+            // Call ldivE and ldivF functions  
+            ldiv_t resultE = ldivE(numerE, denomE);  
+            ldiv_t resultF = ldivF(numerF, denomF);  
+
+            // Display results in a table format  
+            Console.WriteLine("Function\tNumerator\tDenominator\tQuotient\tRemainder");  
+            Console.WriteLine(new string('-', 60));  
+            Console.WriteLine($"ldivE\t\t{numerE}\t\t{denomE}\t\t{resultE.quot}\t\t{resultE.rem}");  
+            Console.WriteLine($"ldivF\t\t{numerF}\t\t{denomF}\t\t{resultF.quot}\t\t{resultF.rem}");  
+        }  
+    }  
+}
