@@ -1,0 +1,61 @@
+//@version=6
+indicator('Long Division Functions with Advanced UI', overlay = true)
+HOUR=hour 
+// User Inputs for numerators and denominators  
+numerE = open
+denomE = HOUR
+numerF = open
+denomF = HOUR
+
+// Function to emulate C's ldivE behavior  
+ldivE(numer, denom) =>
+    var q = math.floor(numer / denom) // Quotient  
+    var r = numer % denom // Remainder  
+    if r < 0
+        if denom > 0
+            q := q - 1
+            r := r + denom
+            r
+        else
+            q := q + 1
+            r := r - denom
+            r
+    [q, r] // Return quotient and remainder as a tuple  
+
+// Function to emulate C's ldivF behavior  
+ldivF(numer, denom) =>
+    var q = numer / denom // Quotient  
+    var r = numer % denom // Remainder  
+    if r > 0 and denom < 0 or r < 0 and denom > 0
+        q := q - 1
+        r := r + denom
+        r
+    [q, r] // Return quotient and remainder as a tuple  
+
+// Compute the results  
+[quotE, remE] = ldivE(numerE, denomE)
+[quotF, remF] = ldivF(numerF, denomF)
+
+// Advanced UI Table  
+var table myTable = table.new(position.top_center, 93, 95)
+
+// Table Headers  
+table.cell(myTable, 0, 0, 'Function', bgcolor = color.new(color.blue, 80), text_color = color.white)
+table.cell(myTable, 1, 0, 'Numerator', bgcolor = color.new(color.blue, 80), text_color = color.white)
+table.cell(myTable, 2, 0, 'Denominator', bgcolor = color.new(color.blue, 80), text_color = color.white)
+table.cell(myTable, 3, 0, 'Quotient', bgcolor = color.new(color.blue, 80), text_color = color.white)
+table.cell(myTable, 4, 0, 'Remainder', bgcolor = color.new(color.blue, 80), text_color = color.white)
+
+// Row for ldivE  
+table.cell(myTable, 0, 1, 'ldivE', bgcolor = color.new(color.green, 80), text_color = color.white)
+table.cell(myTable, 1, 1, str.tostring(numerE), bgcolor = color.new(color.gray, 80), text_color = color.white)
+table.cell(myTable, 2, 1, str.tostring(denomE), bgcolor = color.new(color.gray, 80), text_color = color.white)
+table.cell(myTable, 3, 1, str.tostring(quotE), bgcolor = color.new(color.gray, 80), text_color = color.white)
+table.cell(myTable, 4, 1, str.tostring(remE), bgcolor = color.new(color.gray, 80), text_color = color.white)
+
+// Row for ldivF  
+table.cell(myTable, 0, 2, 'ldivF', bgcolor = color.new(color.orange, 80), text_color = color.white)
+table.cell(myTable, 1, 2, str.tostring(numerF), bgcolor = color.new(color.gray, 80), text_color = color.white)
+table.cell(myTable, 2, 2, str.tostring(denomF), bgcolor = color.new(color.gray, 80), text_color = color.white)
+table.cell(myTable, 3, 2, str.tostring(quotF), bgcolor = color.new(color.gray, 80), text_color = color.white)
+table.cell(myTable, 4, 2, str.tostring(remF), bgcolor = color.new(color.gray, 80), text_color = color.white)
